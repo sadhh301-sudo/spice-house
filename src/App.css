@@ -1,0 +1,547 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #080808;
+  color: white;
+}
+
+.app {
+  min-height: 100vh;
+  background: #080808;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+  height: 90px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  border-bottom: 1px solid #222;
+  background: #080808;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+}
+
+.logo h2 {
+  color: #e9aa25;
+  font-size: 26px;
+  letter-spacing: 3px;
+}
+
+.logo span {
+  color: #999;
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 38px;
+}
+
+.nav-links a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #e9aa25;
+}
+
+.book-btn,
+.gold-btn {
+  border: none;
+  background: #e9aa25;
+  color: #111;
+  padding: 16px 30px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.book-btn:hover,
+.gold-btn:hover {
+  transform: translateY(-2px);
+  background: #ffc344;
+}
+
+
+/* ================= HOME ================= */
+
+.hero {
+  min-height: 650px;
+  display: flex;
+  border-bottom: 1px solid #222;
+}
+
+.hero-content {
+  width: 57%;
+  padding: 80px 7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.small-title {
+  color: #e9aa25;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-size: 72px;
+  line-height: 0.98;
+  margin-bottom: 35px;
+}
+
+.hero h1 span {
+  color: #e9aa25;
+}
+
+.hero-text {
+  color: #aaa;
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 650px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 18px;
+  margin-top: 35px;
+}
+
+.outline-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid #444;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.outline-btn:hover {
+  border-color: #e9aa25;
+  color: #e9aa25;
+}
+
+.stats {
+  display: flex;
+  gap: 70px;
+  margin-top: 55px;
+}
+
+.stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stats strong {
+  color: #e9aa25;
+  font-size: 24px;
+}
+
+.stats span {
+  color: #777;
+  font-size: 12px;
+}
+
+.hero-image {
+  width: 43%;
+  position: relative;
+  padding: 0 7% 0 0;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 0 25px 25px;
+}
+
+.open-box {
+  position: absolute;
+  bottom: 35px;
+  left: 40px;
+  background: #151515;
+  border: 1px solid #333;
+  padding: 20px 25px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.open-box strong {
+  color: #e9aa25;
+}
+
+.open-box span {
+  color: #ddd;
+  font-size: 13px;
+}
+
+
+/* ================= ABOUT ================= */
+
+.about-section {
+  min-height: 500px;
+  padding: 120px 7%;
+  border-bottom: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-section h2,
+.story-section h2 {
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 35px;
+}
+
+.about-section > p:last-child,
+.story-section > p:last-child {
+  color: #999;
+  font-size: 17px;
+  line-height: 1.8;
+  max-width: 850px;
+}
+
+
+/* ================= MENU ================= */
+
+.menu-section {
+  padding: 80px 7%;
+  border-bottom: 1px solid #222;
+}
+
+.menu-section h2 {
+  font-size: 50px;
+  font-weight: 400;
+  margin-bottom: 65px;
+}
+
+.dish-container {
+  display: flex;
+  gap: 28px;
+  width: 100%;
+}
+
+.dish-card {
+  flex: 1;
+  min-width: 0;
+  background: #151515;
+  border: 1px solid #292929;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.dish-card:hover {
+  transform: translateY(-6px);
+  border-color: #555;
+}
+
+.dish-card > img {
+  width: 100%;
+  height: 265px;
+  display: block;
+  object-fit: cover;
+}
+
+.dish-info {
+  padding: 27px;
+}
+
+.dish-subtitle {
+  color: #b9841d;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.dish-info h3 {
+  font-size: 25px;
+  font-weight: 400;
+  margin-bottom: 22px;
+}
+
+.price {
+  color: #e9aa25;
+  font-size: 23px;
+  font-weight: bold;
+  margin-bottom: 28px;
+}
+
+.details-btn {
+  width: 100%;
+  background: transparent;
+  color: white;
+  border: 1px solid #444;
+  padding: 15px;
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.details-btn:hover {
+  border-color: #e9aa25;
+  color: #e9aa25;
+}
+
+
+/* ================= DETAIL PAGE ================= */
+
+.detail-section {
+  min-height: 700px;
+  display: flex;
+  gap: 65px;
+  padding: 0 7% 60px;
+  border-bottom: 1px solid #222;
+}
+
+.detail-image {
+  width: 47%;
+  min-height: 650px;
+}
+
+.detail-image img {
+  width: 100%;
+  height: 650px;
+  object-fit: cover;
+  border-radius: 0 0 25px 25px;
+}
+
+.detail-content {
+  flex: 1;
+  padding-top: 70px;
+}
+
+.detail-content h1 {
+  font-size: 62px;
+  font-weight: 400;
+  margin-bottom: 25px;
+}
+
+.detail-subtitle {
+  color: #c18a24;
+  letter-spacing: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.detail-description {
+  color: #999;
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.feature-box {
+  background: #151515;
+  border: 1px solid #292929;
+  border-radius: 12px;
+  padding: 20px;
+  color: #ddd;
+  font-size: 14px;
+}
+
+.detail-bottom {
+  border-top: 1px solid #292929;
+  margin-top: 40px;
+  padding-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-bottom h2 {
+  color: #e9aa25;
+  font-size: 32px;
+}
+
+.back-btn {
+  margin-top: 30px;
+  border: none;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.back-btn:hover {
+  color: #e9aa25;
+}
+
+
+/* ================= STORY ================= */
+
+.story-section {
+  min-height: 500px;
+  padding: 120px 7%;
+  border-bottom: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.story-section h2 {
+  max-width: 850px;
+}
+
+
+/* ================= CONTACT ================= */
+
+.contact-section {
+  min-height: 500px;
+  padding: 100px 7%;
+  border-bottom: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 52px;
+  font-weight: 400;
+  margin-bottom: 35px;
+}
+
+.contact-section p:not(.small-title) {
+  color: #999;
+  margin-bottom: 35px;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+  min-height: 120px;
+  padding: 30px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #222;
+}
+
+footer p {
+  color: #666;
+  font-size: 14px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 900px) {
+
+  .navbar {
+    padding: 0 4%;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero {
+    flex-direction: column;
+  }
+
+  .hero-content,
+  .hero-image {
+    width: 100%;
+  }
+
+  .hero-content {
+    padding: 70px 7%;
+  }
+
+  .hero-image {
+    height: 500px;
+    padding: 0 7%;
+  }
+
+  .hero h1 {
+    font-size: 52px;
+  }
+
+  .dish-container {
+    flex-direction: column;
+  }
+
+  .detail-section {
+    flex-direction: column;
+  }
+
+  .detail-image {
+    width: 100%;
+  }
+
+  .detail-content {
+    padding-top: 30px;
+  }
+
+  .detail-content h1 {
+    font-size: 45px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .about-section h2,
+  .story-section h2,
+  .menu-section h2,
+  .contact-section h2 {
+    font-size: 38px;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 25px;
+  }
+}
