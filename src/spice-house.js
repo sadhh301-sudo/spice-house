@@ -8,6 +8,7 @@ import pastaImage from "./images4.jpg";
 
 function App() {
   const [selectedDish, setSelectedDish] = useState(null);
+  const [showBooking, setShowBooking] = useState(false);
 
   const dishes = [
     {

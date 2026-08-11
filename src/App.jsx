@@ -8,6 +8,7 @@ import pastaImage from "./images4.jpg";
 
 function App() {
   const [selectedDish, setSelectedDish] = useState(null);
+  const [showBooking, setShowBooking] = useState(false);
 
   const dishes = [
     {
@@ -75,12 +76,14 @@ function App() {
           <a href="#contact">Contact</a>
         </div>
 
-        <button className="book-btn">
-          Book a Table
-        </button>
-      </nav>
+        <button
+  className="book-btn"
+  onClick={() => setShowBooking(true)}
+>
+  Book a Table
+</button>
 
-
+</nav>
       {/* ================= HOME ================= */}
       <section id="home" className="hero">
 
@@ -345,8 +348,46 @@ function App() {
 
       </footer>
 
+{showBooking && (
+  <div className="booking-overlay">
+    <div className="booking-popup">
+
+      <button
+        className="close-btn"
+        onClick={() => setShowBooking(false)}
+      >
+        ×
+      </button>
+
+      <h2>Book a Table</h2>
+      <p>Reserve your table at Spice House</p>
+
+      <input type="text" placeholder="Your Name" />
+      <input type="email" placeholder="Email" />
+      <input type="date" />
+      <input type="time" />
+      <input
+        type="number"
+        placeholder="Number of Guests"
+      />
+
+        <button
+  className="gold-btn"
+  onClick={() => {
+    alert("Booking Confirmed!");
+    setShowBooking(false);
+  }}
+>
+  Confirm Booking
+</button>
+
     </div>
-  );
+  </div>
+)}
+
+</div>
+ );
+
 }
 
 export default App;
