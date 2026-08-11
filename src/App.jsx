@@ -329,11 +329,7 @@ function App() {
           atmosphere.
         </p>
 
-        <button className="gold-btn">
-          Book a Table →
-        </button>
-
-      </section>
+</section>
 
 
       {/* ================= FOOTER ================= */}

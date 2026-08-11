@@ -251,9 +251,7 @@ function App() {
           Come and enjoy handcrafted food in a warm and welcoming
           atmosphere.
         </p>
-
-        <button className="main-btn">Book a Table →</button>
-      </section>
+</section>
 
       <footer>
         <div className="logo">
