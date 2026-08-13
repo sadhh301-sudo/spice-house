@@ -10,6 +10,14 @@ function App() {
   const [selectedDish, setSelectedDish] = useState(null);
   const [showBooking, setShowBooking] = useState(false);
 
+  const [booking, setBooking] = useState({
+    name: "",
+    email: "",
+    date: "",
+    time: "",
+    guests: "",
+  });
+
   const dishes = [
     {
       id: 1,
@@ -58,6 +66,55 @@ function App() {
     },
   ];
 
+  const handleBooking = async () => {
+    if (
+      !booking.name ||
+      !booking.email ||
+      !booking.date ||
+      !booking.time ||
+      !booking.guests
+    ) {
+      alert("Please fill all booking details.");
+      return;
+    }
+
+    try {
+      console.log("BOOKING BUTTON CLICKED");
+      console.log("BOOKING DATA:", booking);
+
+      const response = await fetch("/api/send-booking", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(booking),
+      });
+
+      const data = await response.json();
+
+      console.log("SERVER RESPONSE:", data);
+
+      if (response.ok && data.success) {
+        alert("Booking Confirmed! Email sent successfully.");
+
+        setShowBooking(false);
+
+        setBooking({
+          name: "",
+          email: "",
+          date: "",
+          time: "",
+          guests: "",
+        });
+      } else {
+        alert(data.message || "Booking failed.");
+      }
+    } catch (error) {
+      console.error("BOOKING ERROR:", error);
+      alert("Server connection failed.");
+    }
+  };
+
   return (
     <div className="app">
 
@@ -77,13 +134,13 @@ function App() {
         </div>
 
         <button
-  className="book-btn"
-  onClick={() => setShowBooking(true)}
->
-  Book a Table
-</button>
+          className="book-btn"
+          onClick={() => setShowBooking(true)}
+        >
+          Book a Table
+        </button>
+      </nav>
 
-</nav>
       {/* ================= HOME ================= */}
       <section id="home" className="hero">
 
@@ -106,6 +163,7 @@ function App() {
           </p>
 
           <div className="hero-buttons">
+
             <button
               className="gold-btn"
               onClick={() =>
@@ -127,9 +185,11 @@ function App() {
             >
               Our Story
             </button>
+
           </div>
 
           <div className="stats">
+
             <div>
               <strong>4.9★</strong>
               <span>Customer Rating</span>
@@ -144,21 +204,26 @@ function App() {
               <strong>10+</strong>
               <span>Years Experience</span>
             </div>
+
           </div>
 
         </div>
 
         <div className="hero-image">
-          <img src={heroImage} alt="Spice House Restaurant" />
+
+          <img
+            src={heroImage}
+            alt="Spice House Restaurant"
+          />
 
           <div className="open-box">
             <strong>OPEN TODAY</strong>
             <span>11:00 AM — 11:00 PM</span>
           </div>
+
         </div>
 
       </section>
-
 
       {/* ================= ABOUT ================= */}
       <section id="about" className="about-section">
@@ -181,9 +246,9 @@ function App() {
 
       </section>
 
-
       {/* ================= MENU ================= */}
       {!selectedDish ? (
+
         <section id="menu" className="menu-section">
 
           <p className="small-title">
@@ -195,7 +260,11 @@ function App() {
           <div className="dish-container">
 
             {dishes.map((dish) => (
-              <div className="dish-card" key={dish.id}>
+
+              <div
+                className="dish-card"
+                key={dish.id}
+              >
 
                 <img
                   src={dish.image}
@@ -224,14 +293,17 @@ function App() {
                 </div>
 
               </div>
+
             ))}
 
           </div>
 
         </section>
+
       ) : (
 
         /* ================= DETAIL PAGE ================= */
+
         <section className="detail-section">
 
           <div className="detail-image">
@@ -242,7 +314,6 @@ function App() {
             />
 
           </div>
-
 
           <div className="detail-content">
 
@@ -256,17 +327,22 @@ function App() {
               {selectedDish.description}
             </p>
 
-
             <div className="features">
 
-              {selectedDish.features.map((feature, index) => (
-                <div className="feature-box" key={index}>
-                  ✓ {feature}
-                </div>
-              ))}
+              {selectedDish.features.map(
+                (feature, index) => (
+
+                  <div
+                    className="feature-box"
+                    key={index}
+                  >
+                    ✓ {feature}
+                  </div>
+
+                )
+              )}
 
             </div>
-
 
             <div className="detail-bottom">
 
@@ -278,7 +354,6 @@ function App() {
 
             </div>
 
-
             <button
               className="back-btn"
               onClick={() => setSelectedDish(null)}
@@ -289,8 +364,8 @@ function App() {
           </div>
 
         </section>
-      )}
 
+      )}
 
       {/* ================= STORY ================= */}
       <section id="story" className="story-section">
@@ -314,7 +389,6 @@ function App() {
 
       </section>
 
-
       {/* ================= CONTACT ================= */}
       <section id="contact" className="contact-section">
 
@@ -329,8 +403,7 @@ function App() {
           atmosphere.
         </p>
 
-</section>
-
+      </section>
 
       {/* ================= FOOTER ================= */}
       <footer>
@@ -340,50 +413,105 @@ function App() {
           <span>HOUSE</span>
         </div>
 
-        <p>© 2026 Spice House. All Rights Reserved.</p>
+        <p>
+          © 2026 Spice House. All Rights Reserved.
+        </p>
 
       </footer>
 
-{showBooking && (
-  <div className="booking-overlay">
-    <div className="booking-popup">
+      {/* ================= BOOKING POPUP ================= */}
+      {showBooking && (
 
-      <button
-        className="close-btn"
-        onClick={() => setShowBooking(false)}
-      >
-        ×
-      </button>
+        <div className="booking-overlay">
 
-      <h2>Book a Table</h2>
-      <p>Reserve your table at Spice House</p>
+          <div className="booking-popup">
 
-      <input type="text" placeholder="Your Name" />
-      <input type="email" placeholder="Email" />
-      <input type="date" />
-      <input type="time" />
-      <input
-        type="number"
-        placeholder="Number of Guests"
-      />
+            <button
+              className="close-btn"
+              onClick={() => setShowBooking(false)}
+            >
+              ×
+            </button>
 
-        <button
-  className="gold-btn"
-  onClick={() => {
-    alert("Booking Confirmed!");
-    setShowBooking(false);
-  }}
->
-  Confirm Booking
-</button>
+            <h2>Book a Table</h2>
+
+            <p>
+              Reserve your table at Spice House
+            </p>
+
+            <input
+              type="text"
+              placeholder="Your Name"
+              value={booking.name}
+              onChange={(e) =>
+                setBooking({
+                  ...booking,
+                  name: e.target.value,
+                })
+              }
+            />
+
+            <input
+              type="email"
+              placeholder="Email"
+              value={booking.email}
+              onChange={(e) =>
+                setBooking({
+                  ...booking,
+                  email: e.target.value,
+                })
+              }
+            />
+
+            <input
+              type="date"
+              value={booking.date}
+              onChange={(e) =>
+                setBooking({
+                  ...booking,
+                  date: e.target.value,
+                })
+              }
+            />
+
+            <input
+              type="time"
+              value={booking.time}
+              onChange={(e) =>
+                setBooking({
+                  ...booking,
+                  time: e.target.value,
+                })
+              }
+            />
+
+            <input
+              type="number"
+              placeholder="Number of Guests"
+              value={booking.guests}
+              onChange={(e) =>
+                setBooking({
+                  ...booking,
+                  guests: e.target.value,
+                })
+              }
+            />
+
+            <button
+              className="gold-btn"
+              onClick={handleBooking}
+            >
+              Confirm Booking
+            </button>
+
+          </div>
+
+        </div>
+
+      )}
 
     </div>
-  </div>
-)}
-
-</div>
- );
-
+  );
 }
 
 export default App;
