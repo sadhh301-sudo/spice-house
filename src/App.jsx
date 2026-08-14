@@ -6,6 +6,9 @@ import pizzaImage from "./images2.jpg";
 import chickenImage from "./images3.jpg";
 import pastaImage from "./images4.jpg";
 
+import ProductList from "./ProductList";
+import ProductDetail from "./ProductDetail";
+
 function App() {
   const [selectedDish, setSelectedDish] = useState(null);
   const [showBooking, setShowBooking] = useState(false);
@@ -17,6 +20,8 @@ function App() {
     time: "",
     guests: "",
   });
+
+  // ================= DISHES =================
 
   const dishes = [
     {
@@ -34,6 +39,7 @@ function App() {
         "Fresh vegetables and herbs",
       ],
     },
+
     {
       id: 2,
       name: "Grilled Chicken",
@@ -49,6 +55,7 @@ function App() {
         "Served with fresh vegetables",
       ],
     },
+
     {
       id: 3,
       name: "Creamy Pasta",
@@ -65,6 +72,8 @@ function App() {
       ],
     },
   ];
+
+  // ================= BOOKING =================
 
   const handleBooking = async () => {
     if (
@@ -115,22 +124,73 @@ function App() {
     }
   };
 
+  // ================= SCROLL FUNCTION =================
+
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
+  // ================= RETURN =================
+
   return (
     <div className="app">
 
       {/* ================= NAVBAR ================= */}
+
       <nav className="navbar">
-        <div className="logo">
+
+        <div
+          className="logo"
+          onClick={() => scrollToSection("home")}
+          style={{ cursor: "pointer" }}
+        >
           <h2>SPICE</h2>
           <span>HOUSE</span>
         </div>
 
         <div className="nav-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#menu">Menu</a>
-          <a href="#story">Our Story</a>
-          <a href="#contact">Contact</a>
+
+          <a
+            href="#home"
+            onClick={() => setSelectedDish(null)}
+          >
+            Home
+          </a>
+
+          <a
+            href="#about"
+            onClick={() => setSelectedDish(null)}
+          >
+            About
+          </a>
+
+          <a
+            href="#menu"
+            onClick={() => setSelectedDish(null)}
+          >
+            Menu
+          </a>
+
+          <a
+            href="#story"
+            onClick={() => setSelectedDish(null)}
+          >
+            Our Story
+          </a>
+
+          <a
+            href="#contact"
+            onClick={() => setSelectedDish(null)}
+          >
+            Contact
+          </a>
+
         </div>
 
         <button
@@ -139,9 +199,12 @@ function App() {
         >
           Book a Table
         </button>
+
       </nav>
 
+
       {/* ================= HOME ================= */}
+
       <section id="home" className="hero">
 
         <div className="hero-content">
@@ -166,22 +229,14 @@ function App() {
 
             <button
               className="gold-btn"
-              onClick={() =>
-                document
-                  .getElementById("menu")
-                  .scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={() => scrollToSection("menu")}
             >
               Explore Menu →
             </button>
 
             <button
               className="outline-btn"
-              onClick={() =>
-                document
-                  .getElementById("story")
-                  .scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={() => scrollToSection("story")}
             >
               Our Story
             </button>
@@ -209,6 +264,7 @@ function App() {
 
         </div>
 
+
         <div className="hero-image">
 
           <img
@@ -217,16 +273,26 @@ function App() {
           />
 
           <div className="open-box">
+
             <strong>OPEN TODAY</strong>
-            <span>11:00 AM — 11:00 PM</span>
+
+            <span>
+              11:00 AM — 11:00 PM
+            </span>
+
           </div>
 
         </div>
 
       </section>
 
+
       {/* ================= ABOUT ================= */}
-      <section id="about" className="about-section">
+
+      <section
+        id="about"
+        className="about-section"
+      >
 
         <p className="small-title">
           ABOUT SPICE HOUSE
@@ -246,129 +312,70 @@ function App() {
 
       </section>
 
+
       {/* ================= MENU ================= */}
+
       {!selectedDish ? (
 
-        <section id="menu" className="menu-section">
+        <section
+          id="menu"
+          className="menu-section"
+        >
 
           <p className="small-title">
             OUR SIGNATURE MENU
           </p>
 
-          <h2>Explore Our Special Dishes</h2>
+          <h2>
+            Explore Our Special Dishes
+          </h2>
 
-          <div className="dish-container">
+          <ProductList
+            products={dishes}
+            onViewDetails={(product) => {
+              setSelectedDish(product);
 
-            {dishes.map((dish) => (
-
-              <div
-                className="dish-card"
-                key={dish.id}
-              >
-
-                <img
-                  src={dish.image}
-                  alt={dish.name}
-                />
-
-                <div className="dish-info">
-
-                  <p className="dish-subtitle">
-                    {dish.subtitle}
-                  </p>
-
-                  <h3>{dish.name}</h3>
-
-                  <div className="price">
-                    {dish.price}
-                  </div>
-
-                  <button
-                    className="details-btn"
-                    onClick={() => setSelectedDish(dish)}
-                  >
-                    View Full Details →
-                  </button>
-
-                </div>
-
-              </div>
-
-            ))}
-
-          </div>
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+            }}
+          />
 
         </section>
 
       ) : (
 
-        /* ================= DETAIL PAGE ================= */
+        /* ================= PRODUCT DETAIL ================= */
 
-        <section className="detail-section">
+        <section id="menu">
 
-          <div className="detail-image">
+          <ProductDetail
+            product={selectedDish}
+            onBack={() => {
+              setSelectedDish(null);
 
-            <img
-              src={selectedDish.image}
-              alt={selectedDish.name}
-            />
-
-          </div>
-
-          <div className="detail-content">
-
-            <h1>{selectedDish.name}</h1>
-
-            <p className="detail-subtitle">
-              {selectedDish.subtitle}
-            </p>
-
-            <p className="detail-description">
-              {selectedDish.description}
-            </p>
-
-            <div className="features">
-
-              {selectedDish.features.map(
-                (feature, index) => (
-
-                  <div
-                    className="feature-box"
-                    key={index}
-                  >
-                    ✓ {feature}
-                  </div>
-
-                )
-              )}
-
-            </div>
-
-            <div className="detail-bottom">
-
-              <h2>{selectedDish.price}</h2>
-
-              <button className="gold-btn">
-                Order Now
-              </button>
-
-            </div>
-
-            <button
-              className="back-btn"
-              onClick={() => setSelectedDish(null)}
-            >
-              ← Back to Menu
-            </button>
-
-          </div>
+              setTimeout(() => {
+                document
+                  .getElementById("menu")
+                  ?.scrollIntoView({
+                    behavior: "smooth",
+                  });
+              }, 100);
+            }}
+          />
 
         </section>
 
       )}
 
+
       {/* ================= STORY ================= */}
-      <section id="story" className="story-section">
+
+      <section
+        id="story"
+        className="story-section"
+      >
 
         <p className="small-title">
           OUR STORY
@@ -389,14 +396,21 @@ function App() {
 
       </section>
 
+
       {/* ================= CONTACT ================= */}
-      <section id="contact" className="contact-section">
+
+      <section
+        id="contact"
+        className="contact-section"
+      >
 
         <p className="small-title">
           VISIT SPICE HOUSE
         </p>
 
-        <h2>Reserve Your Table</h2>
+        <h2>
+          Reserve Your Table
+        </h2>
 
         <p>
           Come and enjoy handcrafted food in a warm and welcoming
@@ -405,12 +419,17 @@ function App() {
 
       </section>
 
+
       {/* ================= FOOTER ================= */}
+
       <footer>
 
         <div className="logo">
+
           <h2>SPICE</h2>
+
           <span>HOUSE</span>
+
         </div>
 
         <p>
@@ -419,7 +438,9 @@ function App() {
 
       </footer>
 
+
       {/* ================= BOOKING POPUP ================= */}
+
       {showBooking && (
 
         <div className="booking-overlay">
@@ -433,11 +454,16 @@ function App() {
               ×
             </button>
 
-            <h2>Book a Table</h2>
+            <h2>
+              Book a Table
+            </h2>
 
             <p>
               Reserve your table at Spice House
             </p>
+
+
+            {/* NAME */}
 
             <input
               type="text"
@@ -451,6 +477,9 @@ function App() {
               }
             />
 
+
+            {/* EMAIL */}
+
             <input
               type="email"
               placeholder="Email"
@@ -463,6 +492,9 @@ function App() {
               }
             />
 
+
+            {/* DATE */}
+
             <input
               type="date"
               value={booking.date}
@@ -473,6 +505,9 @@ function App() {
                 })
               }
             />
+
+
+            {/* TIME */}
 
             <input
               type="time"
@@ -485,8 +520,12 @@ function App() {
               }
             />
 
+
+            {/* GUESTS */}
+
             <input
               type="number"
+              min="1"
               placeholder="Number of Guests"
               value={booking.guests}
               onChange={(e) =>
@@ -496,6 +535,9 @@ function App() {
                 })
               }
             />
+
+
+            {/* CONFIRM */}
 
             <button
               className="gold-btn"
