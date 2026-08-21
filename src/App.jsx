@@ -1,16 +1,120 @@
 import React, { useState } from "react";
 import "./App.css";
 
+import ProductList from "./ProductList";
+import ProductDetail from "./ProductDetail";
+
 import heroImage from "./images1.jpg";
 import pizzaImage from "./images2.jpg";
 import chickenImage from "./images3.jpg";
 import pastaImage from "./images4.jpg";
 
-import ProductList from "./ProductList";
-import ProductDetail from "./ProductDetail";
+//Wood Fried Pizza gallery 
+import pizza1 from "./assets/pizza1 (2).jpg";
+import pizza2 from "./assets/pizza2 (2).jpg";
+import pizza3 from "./assets/pizza3 (2).jpg";
+import pizza4 from "./assets/pizza4.jpg";
+
+//Chicken Burger gallery
+import burger1 from "./assets/burger1.jpg";
+import burger2 from "./assets/burger2.jpg";
+import burger3 from "./assets/burger3.jpg";
+
+//Creamy Pasta gallery
+import pasta1 from "./assets/pasta1.jpg";
+import pasta2 from "./assets/pasta2.jpg";
+import pasta3 from "./assets/pasta3.jpg";
 
 function App() {
-  const [selectedDish, setSelectedDish] = useState(null);
+  // =========================================
+  // PRODUCTS
+  // =========================================
+
+  const products = [
+    {
+      id: 1,
+      slug: "wood-fired-pizza",
+      name: "Wood-Fired Pizza",
+      subtitle: "CRISPY • FRESH • HANDCRAFTED",
+      price: "₹349",
+      image: pizzaImage,
+
+      gallery:[
+        pizza1,
+        pizza2,
+        pizza3,
+        pizza4,
+      ],
+
+      description:
+        "Our Wood-Fired Pizza is made with freshly prepared dough, premium toppings and aromatic herbs. It is baked in a traditional wood-fired oven to create a crispy crust with a delicious smoky flavour.",
+      features: [
+        "Freshly prepared dough",
+        "Premium cheese",
+        "Wood-fired oven",
+        "Fresh herbs",
+      ],
+    },
+
+    {
+      id: 2,
+      slug: "grilled-chicken",
+      name: "Grilled Chicken",
+      subtitle: "JUICY • TENDER • FLAVORFUL",
+      price: "₹399",
+      image: chickenImage,
+
+      gallery:[
+        burger1,
+        burger2,
+        burger3,
+      ],
+
+      description:
+        "Tender grilled chicken marinated with our special Spice House seasoning and grilled perfectly for a juicy, smoky and flavorful experience.",
+      features: [
+        "Fresh chicken",
+        "Special marinade",
+        "Perfectly grilled",
+        "Rich smoky flavour",
+      ],
+    },
+
+    {
+      id: 3,
+      slug: "creamy-pasta",
+      name: "Creamy Pasta",
+      subtitle: "RICH • CREAMY • DELICIOUS",
+      price: "₹329",
+      image: pastaImage,
+
+      gallery:[
+        pasta1,
+        pasta2,
+        pasta3,
+      ],
+
+      description:
+        "Creamy Pasta prepared with perfectly cooked pasta, rich creamy sauce and fresh herbs. A comforting dish made specially for pasta lovers.",
+      features: [
+        "Creamy sauce",
+        "Fresh pasta",
+        "Italian herbs",
+        "Rich flavour",
+      ],
+    },
+  ];
+
+  // =========================================
+  // STATES
+  // =========================================
+
+  // IMPORTANT:
+  // Product object illa.
+  // Slug mattum store pannuvom.
+
+  const [selectedSlug, setSelectedSlug] = useState(null);
+
   const [showBooking, setShowBooking] = useState(false);
 
   const [booking, setBooking] = useState({
@@ -21,61 +125,60 @@ function App() {
     guests: "",
   });
 
-  // ================= DISHES =================
+  // =========================================
+  // VIEW PRODUCT DETAILS
+  // =========================================
 
-  const dishes = [
-    {
-      id: 1,
-      name: "Wood-Fired Pizza",
-      subtitle: "CRISPY • FRESH • HANDCRAFTED",
-      price: "₹349",
-      image: pizzaImage,
-      description:
-        "Our signature Wood-Fired Pizza is prepared with handcrafted dough, rich tomato sauce and premium mozzarella cheese. It is baked in a traditional wood-fired oven to create a crispy crust with a soft and delicious centre.",
-      features: [
-        "Traditional wood-fired oven",
-        "Handcrafted fresh dough",
-        "Premium mozzarella cheese",
-        "Fresh vegetables and herbs",
-      ],
-    },
+  const handleViewDetails = (slug) => {
+    setSelectedSlug(slug);
 
-    {
-      id: 2,
-      name: "Grilled Chicken",
-      subtitle: "JUICY • TENDER • FLAVORFUL",
-      price: "₹399",
-      image: chickenImage,
-      description:
-        "Our Grilled Chicken is marinated with carefully selected herbs and spices before being perfectly grilled. The result is tender, juicy chicken with a smoky aroma and rich flavour.",
-      features: [
-        "Fresh premium chicken",
-        "Special house marinade",
-        "Perfectly grilled",
-        "Served with fresh vegetables",
-      ],
-    },
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
-    {
-      id: 3,
-      name: "Creamy Pasta",
-      subtitle: "CREAMY • RICH • DELICIOUS",
-      price: "₹329",
-      image: pastaImage,
-      description:
-        "Our Creamy Pasta combines perfectly cooked pasta with a rich and smooth creamy sauce. Fresh herbs, vegetables and premium ingredients create a comforting and unforgettable taste.",
-      features: [
-        "Premium quality pasta",
-        "Rich creamy sauce",
-        "Fresh herbs",
-        "Chef's special seasoning",
-      ],
-    },
-  ];
+  // =========================================
+  // BOOKING INPUT CHANGE
+  // =========================================
 
-  // ================= BOOKING =================
+  const handleBookingChange = (e) => {
+    const { name, value } = e.target;
 
-  const handleBooking = async () => {
+    setBooking((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+  };
+
+  // =========================================
+  // OPEN BOOKING
+  // =========================================
+
+  const openBooking = () => {
+    setShowBooking(true);
+  };
+
+  // =========================================
+  // CLOSE BOOKING
+  // =========================================
+
+  const closeBooking = () => {
+    setShowBooking(false);
+  };
+
+  // =========================================
+  // HANDLE BOOKING
+  // =========================================
+
+  const handleBooking = async (e) => {
+    e.preventDefault();
+
+    console.log("BOOKING BUTTON CLICKED");
+    console.log("BOOKING DATA:", booking);
+
+    // Check fields
+
     if (
       !booking.name ||
       !booking.email ||
@@ -88,25 +191,28 @@ function App() {
     }
 
     try {
-      console.log("BOOKING BUTTON CLICKED");
-      console.log("BOOKING DATA:", booking);
+      console.log("SENDING BOOKING TO VERCEL API...");
 
-      const response = await fetch("/api/send-booking", {
+      const response = await fetch("http://localhost:5000/send-booking", {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify(booking),
       });
+
+      console.log("RESPONSE STATUS:", response.status);
 
       const data = await response.json();
 
       console.log("SERVER RESPONSE:", data);
 
-      if (response.ok && data.success) {
-        alert("Booking Confirmed! Email sent successfully.");
+      // SUCCESS
 
-        setShowBooking(false);
+      if (data.success) {
+        alert("Booking confirmed successfully! 🍽️");
 
         setBooking({
           name: "",
@@ -115,79 +221,283 @@ function App() {
           time: "",
           guests: "",
         });
-      } else {
-        alert(data.message || "Booking failed.");
+
+        setShowBooking(false);
+      }
+
+      // ERROR
+
+      else {
+        alert(
+          data.message ||
+            "Booking failed. Please try again."
+        );
       }
     } catch (error) {
       console.error("BOOKING ERROR:", error);
-      alert("Server connection failed.");
+
+      alert(
+        "Server connection failed. Please try again."
+      );
     }
   };
 
-  // ================= SCROLL FUNCTION =================
+  // =========================================
+  // PRODUCT DETAIL PAGE
+  // =========================================
 
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
+  if (selectedSlug) {
+    return (
+      <div className="app">
 
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  };
+        {/* =================================
+            NAVBAR
+        ================================= */}
 
-  // ================= RETURN =================
+        <nav className="navbar">
+
+          <div className="logo">
+            <h2>SPICE HOUSE</h2>
+            <span>RESTAURANT</span>
+          </div>
+
+          <div className="nav-links">
+
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+
+                setSelectedSlug(null);
+
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Home
+            </a>
+
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+
+                setSelectedSlug(null);
+
+                setTimeout(() => {
+                  document
+                    .getElementById("menu")
+                    ?.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                }, 100);
+              }}
+            >
+              Menu
+            </a>
+
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+
+                setSelectedSlug(null);
+
+                setTimeout(() => {
+                  document
+                    .getElementById("about")
+                    ?.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                }, 100);
+              }}
+            >
+              About
+            </a>
+
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+
+                setSelectedSlug(null);
+
+                setTimeout(() => {
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                }, 100);
+              }}
+            >
+              Contact
+            </a>
+
+          </div>
+
+          <button
+            className="book-btn"
+            onClick={openBooking}
+          >
+            Book a Table
+          </button>
+
+        </nav>
+
+        {/* =================================
+            SINGLE PRODUCT DETAIL PAGE
+            SLUG PASSING THROUGH PROPS
+        ================================= */}
+
+        <ProductDetail
+          slug={selectedSlug}
+          products={products}
+          onBack={() => {
+            setSelectedSlug(null);
+
+            setTimeout(() => {
+              document
+                .getElementById("menu")
+                ?.scrollIntoView({
+                  behavior: "smooth",
+                });
+            }, 100);
+          }}
+          onBook={openBooking}
+        />
+
+        {/* =================================
+            BOOKING POPUP
+        ================================= */}
+
+        {showBooking && (
+          <div
+            className="booking-overlay"
+            onClick={(e) => {
+              if (
+                e.target.className ===
+                "booking-overlay"
+              ) {
+                closeBooking();
+              }
+            }}
+          >
+            <div className="booking-popup">
+
+              <button
+                className="close-btn"
+                onClick={closeBooking}
+              >
+                ×
+              </button>
+
+              <h2>Book a Table</h2>
+
+              <p>
+                Reserve your table at Spice House
+              </p>
+
+              <form onSubmit={handleBooking}>
+
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={booking.name}
+                  onChange={handleBookingChange}
+                />
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  value={booking.email}
+                  onChange={handleBookingChange}
+                />
+
+                <input
+                  type="date"
+                  name="date"
+                  value={booking.date}
+                  onChange={handleBookingChange}
+                />
+
+                <input
+                  type="time"
+                  name="time"
+                  value={booking.time}
+                  onChange={handleBookingChange}
+                />
+
+                <input
+                  type="number"
+                  name="guests"
+                  placeholder="Number of Guests"
+                  min="1"
+                  value={booking.guests}
+                  onChange={handleBookingChange}
+                />
+
+                <button
+                  type="submit"
+                  className="gold-btn"
+                >
+                  🍽️ Confirm Booking
+                </button>
+
+              </form>
+
+            </div>
+          </div>
+        )}
+
+      </div>
+    );
+  }
+
+  // =========================================
+  // HOME PAGE
+  // =========================================
 
   return (
     <div className="app">
 
-      {/* ================= NAVBAR ================= */}
+      {/* =================================
+          NAVBAR
+      ================================= */}
 
       <nav className="navbar">
 
-        <div
-          className="logo"
-          onClick={() => scrollToSection("home")}
-          style={{ cursor: "pointer" }}
-        >
-          <h2>SPICE</h2>
-          <span>HOUSE</span>
+        <div className="logo">
+
+          <h2>SPICE HOUSE</h2>
+
+          <span>RESTAURANT</span>
+
         </div>
 
         <div className="nav-links">
 
-          <a
-            href="#home"
-            onClick={() => setSelectedDish(null)}
-          >
+          <a href="#home">
             Home
           </a>
 
-          <a
-            href="#about"
-            onClick={() => setSelectedDish(null)}
-          >
-            About
-          </a>
-
-          <a
-            href="#menu"
-            onClick={() => setSelectedDish(null)}
-          >
+          <a href="#menu">
             Menu
           </a>
 
-          <a
-            href="#story"
-            onClick={() => setSelectedDish(null)}
-          >
-            Our Story
+          <a href="#about">
+            About
           </a>
 
-          <a
-            href="#contact"
-            onClick={() => setSelectedDish(null)}
-          >
+          <a href="#story">
+            Story
+          </a>
+
+          <a href="#contact">
             Contact
           </a>
 
@@ -195,17 +505,21 @@ function App() {
 
         <button
           className="book-btn"
-          onClick={() => setShowBooking(true)}
+          onClick={openBooking}
         >
           Book a Table
         </button>
 
       </nav>
 
+      {/* =================================
+          HERO
+      ================================= */}
 
-      {/* ================= HOME ================= */}
-
-      <section id="home" className="hero">
+      <section
+        className="hero"
+        id="home"
+      >
 
         <div className="hero-content">
 
@@ -214,56 +528,55 @@ function App() {
           </p>
 
           <h1>
-            Taste the
+            Great Food.
             <br />
-            <span>Extraordinary</span>
+            <span>Great Moments.</span>
           </h1>
 
           <p className="hero-text">
-            A modern restaurant where traditional flavours meet
-            contemporary dining. Discover handcrafted dishes,
-            premium ingredients and unforgettable flavours.
+            Experience delicious handcrafted dishes,
+            warm hospitality and unforgettable moments
+            at Spice House.
           </p>
 
           <div className="hero-buttons">
 
             <button
               className="gold-btn"
-              onClick={() => scrollToSection("menu")}
+              onClick={openBooking}
             >
-              Explore Menu →
+              Book a Table
             </button>
 
-            <button
+            <a
+              href="#menu"
               className="outline-btn"
-              onClick={() => scrollToSection("story")}
             >
-              Our Story
-            </button>
+              Explore Menu
+            </a>
 
           </div>
 
           <div className="stats">
 
             <div>
-              <strong>4.9★</strong>
-              <span>Customer Rating</span>
-            </div>
-
-            <div>
-              <strong>25+</strong>
+              <strong>10+</strong>
               <span>Signature Dishes</span>
             </div>
 
             <div>
-              <strong>10+</strong>
+              <strong>4.9★</strong>
+              <span>Guest Rating</span>
+            </div>
+
+            <div>
+              <strong>5+</strong>
               <span>Years Experience</span>
             </div>
 
           </div>
 
         </div>
-
 
         <div className="hero-image">
 
@@ -274,7 +587,9 @@ function App() {
 
           <div className="open-box">
 
-            <strong>OPEN TODAY</strong>
+            <strong>
+              OPEN TODAY
+            </strong>
 
             <span>
               11:00 AM — 11:00 PM
@@ -286,12 +601,13 @@ function App() {
 
       </section>
 
-
-      {/* ================= ABOUT ================= */}
+      {/* =================================
+          ABOUT
+      ================================= */}
 
       <section
-        id="about"
         className="about-section"
+        id="about"
       >
 
         <p className="small-title">
@@ -299,82 +615,52 @@ function App() {
         </p>
 
         <h2>
-          Where Great Food Meets Great
+          Crafted with passion,
           <br />
-          Moments
+          served with love.
         </h2>
 
         <p>
-          Spice House is a warm and modern restaurant created for
-          people who love delicious food, beautiful surroundings and
-          memorable dining experiences.
+          At Spice House, we believe that great food
+          brings people together. Every dish is prepared
+          with fresh ingredients, carefully selected
+          flavours and a passion for creating memorable
+          dining experiences.
         </p>
 
       </section>
 
-
-      {/* ================= MENU ================= */}
-
-      {!selectedDish ? (
-
-        <section
-          id="menu"
-          className="menu-section"
-        >
-
-          <p className="small-title">
-            OUR SIGNATURE MENU
-          </p>
-
-          <h2>
-            Explore Our Special Dishes
-          </h2>
-
-          <ProductList
-            products={dishes}
-            onViewDetails={(product) => {
-              setSelectedDish(product);
-
-              window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-              });
-            }}
-          />
-
-        </section>
-
-      ) : (
-
-        /* ================= PRODUCT DETAIL ================= */
-
-        <section id="menu">
-
-          <ProductDetail
-            product={selectedDish}
-            onBack={() => {
-              setSelectedDish(null);
-
-              setTimeout(() => {
-                document
-                  .getElementById("menu")
-                  ?.scrollIntoView({
-                    behavior: "smooth",
-                  });
-              }, 100);
-            }}
-          />
-
-        </section>
-
-      )}
-
-
-      {/* ================= STORY ================= */}
+      {/* =================================
+          MENU / PRODUCT LIST
+      ================================= */}
 
       <section
-        id="story"
+        className="menu-section"
+        id="menu"
+      >
+
+        <p className="small-title">
+          OUR SPECIALITIES
+        </p>
+
+        <h2>
+          Signature Dishes
+        </h2>
+
+        <ProductList
+          products={products}
+          onViewDetails={handleViewDetails}
+        />
+
+      </section>
+
+      {/* =================================
+          STORY
+      ================================= */}
+
+      <section
         className="story-section"
+        id="story"
       >
 
         <p className="small-title">
@@ -382,74 +668,91 @@ function App() {
         </p>
 
         <h2>
-          Made With Passion, Served With
+          From our kitchen
           <br />
-          Love
+          to your table.
         </h2>
 
         <p>
-          From carefully selected ingredients to every plate served
-          at your table, our chefs focus on quality, freshness and
-          flavour. Every visit to Spice House is designed to become
-          a memorable experience.
+          What started as a passion for good food has
+          grown into a place where friends and families
+          come together. Our kitchen combines traditional
+          flavours with modern presentation to create
+          something truly special.
         </p>
 
       </section>
 
-
-      {/* ================= CONTACT ================= */}
+      {/* =================================
+          CONTACT
+      ================================= */}
 
       <section
-        id="contact"
         className="contact-section"
+        id="contact"
       >
 
         <p className="small-title">
-          VISIT SPICE HOUSE
+          GET IN TOUCH
         </p>
 
         <h2>
-          Reserve Your Table
+          Visit Spice House
         </h2>
 
         <p>
-          Come and enjoy handcrafted food in a warm and welcoming
-          atmosphere.
+          Come and enjoy delicious food with us.
         </p>
+
+        <br />
+
+        <button
+          className="gold-btn"
+          onClick={openBooking}
+        >
+          Book Your Table
+        </button>
 
       </section>
 
-
-      {/* ================= FOOTER ================= */}
+      {/* =================================
+          FOOTER
+      ================================= */}
 
       <footer>
-
-        <div className="logo">
-
-          <h2>SPICE</h2>
-
-          <span>HOUSE</span>
-
-        </div>
 
         <p>
           © 2026 Spice House. All Rights Reserved.
         </p>
 
+        <p>
+          Fresh Food • Great Moments
+        </p>
+
       </footer>
 
-
-      {/* ================= BOOKING POPUP ================= */}
+      {/* =================================
+          BOOKING POPUP
+      ================================= */}
 
       {showBooking && (
-
-        <div className="booking-overlay">
+        <div
+          className="booking-overlay"
+          onClick={(e) => {
+            if (
+              e.target.className ===
+              "booking-overlay"
+            ) {
+              closeBooking();
+            }
+          }}
+        >
 
           <div className="booking-popup">
 
             <button
               className="close-btn"
-              onClick={() => setShowBooking(false)}
+              onClick={closeBooking}
             >
               ×
             </button>
@@ -462,94 +765,59 @@ function App() {
               Reserve your table at Spice House
             </p>
 
+            <form onSubmit={handleBooking}>
 
-            {/* NAME */}
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={booking.name}
+                onChange={handleBookingChange}
+              />
 
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={booking.name}
-              onChange={(e) =>
-                setBooking({
-                  ...booking,
-                  name: e.target.value,
-                })
-              }
-            />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={booking.email}
+                onChange={handleBookingChange}
+              />
 
+              <input
+                type="date"
+                name="date"
+                value={booking.date}
+                onChange={handleBookingChange}
+              />
 
-            {/* EMAIL */}
+              <input
+                type="time"
+                name="time"
+                value={booking.time}
+                onChange={handleBookingChange}
+              />
 
-            <input
-              type="email"
-              placeholder="Email"
-              value={booking.email}
-              onChange={(e) =>
-                setBooking({
-                  ...booking,
-                  email: e.target.value,
-                })
-              }
-            />
+              <input
+                type="number"
+                name="guests"
+                placeholder="Number of Guests"
+                min="1"
+                value={booking.guests}
+                onChange={handleBookingChange}
+              />
 
+              <button
+                type="submit"
+                className="gold-btn"
+              >
+                🍽️ Confirm Booking
+              </button>
 
-            {/* DATE */}
-
-            <input
-              type="date"
-              value={booking.date}
-              onChange={(e) =>
-                setBooking({
-                  ...booking,
-                  date: e.target.value,
-                })
-              }
-            />
-
-
-            {/* TIME */}
-
-            <input
-              type="time"
-              value={booking.time}
-              onChange={(e) =>
-                setBooking({
-                  ...booking,
-                  time: e.target.value,
-                })
-              }
-            />
-
-
-            {/* GUESTS */}
-
-            <input
-              type="number"
-              min="1"
-              placeholder="Number of Guests"
-              value={booking.guests}
-              onChange={(e) =>
-                setBooking({
-                  ...booking,
-                  guests: e.target.value,
-                })
-              }
-            />
-
-
-            {/* CONFIRM */}
-
-            <button
-              className="gold-btn"
-              onClick={handleBooking}
-            >
-              Confirm Booking
-            </button>
+            </form>
 
           </div>
 
         </div>
-
       )}
 
     </div>

@@ -26,16 +26,15 @@ export default async function handler(req, res) {
       },
     });
 
-    await transporter.verify();
-
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.RECEIVER_EMAIL,
       replyTo: email,
+
       subject: "🍽️ New Spice House Booking",
 
       text: `
-New booking received!
+New Booking Received - Spice House
 
 Name: ${name}
 Customer Email: ${email}
