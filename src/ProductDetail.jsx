@@ -47,7 +47,7 @@ function ProductDetail({ slug, products, onBack, onBook }) {
     : [product.image];
 
   // Reviews
-  const reviews = product.reviews || [
+  const reviews = [
     {
       name: "Rahul",
       rating: 5,
@@ -449,7 +449,7 @@ function ProductDetail({ slug, products, onBack, onBook }) {
 
           <h3>Available offers</h3>
 
-          <p>✓ 5% Instant Discount on PREPAID orders</p>
+          <p>✓ 5% Instant Discount on ONLINE orders</p>
 
           <p>✓ Bank Offer on all major Credit Cards</p>
 

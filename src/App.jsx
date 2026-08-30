@@ -1,3 +1,4 @@
+import Header from "./components/Header";
 import React, { useState } from "react";
 import "./App.css";
 
@@ -193,7 +194,7 @@ function App() {
     try {
       console.log("SENDING BOOKING TO VERCEL API...");
 
-      const response = await fetch("http://localhost:5000/send-booking", {
+      const response = await fetch("http://localhost:5000/api/send-booking", {
         method: "POST",
 
         headers: {
@@ -464,6 +465,7 @@ function App() {
 
   return (
     <div className="app">
+      <Header />
 
       {/* =================================
           NAVBAR
