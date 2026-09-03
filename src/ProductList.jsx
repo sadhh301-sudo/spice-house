@@ -4,7 +4,7 @@ function ProductList({ products, onViewDetails }) {
   return (
     <div className="dish-container">
 
-      {products.map((product) => (
+      {(products || []).map((product) => (
         <div className="dish-card" key={product.id}>
 
           <img
